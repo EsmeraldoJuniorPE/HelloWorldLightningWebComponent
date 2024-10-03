@@ -1,0 +1,22 @@
+.carousel {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    overflow: hidden;
+    position: relative;  
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.slide {
+    flex: 0 0 100%;
+    background-color: rgb(53, 89, 72);
+    color: #fff;
+}
+
+.slideSelecionado{
+    background-color: rgb(125, 155, 141);
+}

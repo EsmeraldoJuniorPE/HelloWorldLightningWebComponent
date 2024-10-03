@@ -1,0 +1,44 @@
+<template>
+    <!-- Início do componente de card -->
+    <lightning-card title="Accordion" icon-name="custom:custom14">
+        <div class="slds-m-around_medium">
+
+            <!-- Template condicional: exibe o combobox somente se 'serieEscolhida' for falso -->
+            <template if:false={serieEscolhida}>
+                <lightning-combobox name="serie" label="Qual a sua Série" value={serie} placeholder="Selecione sua Série" options={optionsSeries} onchange={handleChange}></lightning-combobox>
+            </template>
+
+            <!-- Template condicional: exibe o accordion somente se 'serieEscolhida' for verdadeiro -->
+            <template if:true={serieEscolhida}>
+
+                <!-- Componente de accordion com manipulador de evento 'onsectiontoggle' e seção ativa definida por 'serieQueFoiEscolhida' -->
+                <lightning-accordion onsectiontoggle={handleToggleSection} active-section-name={serieQueFoiEscolhida} allow-multiple-sections-open>
+
+                    <!-- Template condicional: exibe a seção 'a' se 'a' for verdadeiro -->
+                    <template if:true={a}>
+                        <lightning-accordion-section name="serie1" label="Accordion Série 1">
+                            <p>Foi selecionada a Série {serieQueFoiEscolhida}</p>
+                        </lightning-accordion-section>
+                    </template>
+
+                    <!-- Template condicional: exibe a seção 'b' se 'b' for verdadeiro -->
+                    <template if:true={b}>
+                        <lightning-accordion-section name="serie2" label="Accordion Série 2">
+                            <p>Foi selecionada a Série {serieQueFoiEscolhida}</p>
+                        </lightning-accordion-section>
+                    </template>
+
+                    <!-- Template condicional: exibe a seção 'c' se 'c' for verdadeiro -->
+                    <template if:true={c}>
+                        <lightning-accordion-section name="serie3" label="Accordion Série 3">
+                            <p>Foi selecionada a Série {serieQueFoiEscolhida}</p>
+                        </lightning-accordion-section>
+                    </template>
+
+                </lightning-accordion>
+
+            </template>
+
+        </div>
+    </lightning-card>
+</template>
