@@ -25,4 +25,8 @@ export default class CssCustom extends LightningElement {
         return this.value.join(',');
     }
 
+    handleChange(e) {
+        this.value = e.detail.value;
+    }
+
 }
