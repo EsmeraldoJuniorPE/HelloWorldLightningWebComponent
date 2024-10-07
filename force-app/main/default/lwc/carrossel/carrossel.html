@@ -1,14 +1,17 @@
 <template>
     <div class="slds-size_3-of-4" style="background-color: aliceblue;">
         <div class="slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
-            <h1 style="font-size: 20px;"><b>Basic Carousel</b></h1>
+            <h1 style="font-size: 20px;"><b>Carrossel Básico</b></h1>
 
-            <div class="carousel">
+            <div class="carrossel">
                 <div class="slider" style={posicao}>
 
                     <template for:each={dados} for:item="d">
                         <div key={d.id} class={slideJs}>
                             <h2><b>{d.empresa}</b></h2>
+                            <div style="color: black; padding: 0 20px">
+                                <lightning-input value={d.empresa} onchange={mudarvalor}></lightning-input>
+                            </div>
 
                             <template for:each={d.produtos} for:item="p">
                                 <div key={p.id}>

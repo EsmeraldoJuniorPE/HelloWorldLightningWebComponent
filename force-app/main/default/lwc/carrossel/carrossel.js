@@ -1,9 +1,13 @@
 import { LightningElement, api } from 'lwc';
 
-export default class Carousel extends LightningElement {
+export default class Carrossel extends LightningElement {
     @api dados;
     pagina = 0;
-    paginaSelecionada;                                                                                                                                                                                                                    
+    paginaSelecionada; 
+    
+    connectedCallback(){
+        this.dados = JSON.parse(JSON.stringify(this.dados));
+    }
     get posicao(){
         return `transform:translateX(-${this.pagina * 100}%);`;
     }
@@ -40,5 +44,10 @@ export default class Carousel extends LightningElement {
             }
         });
         this.dispatchEvent(selecionado);
+    }
+
+    mudarvalor(e){
+        this.dados[this.pagina].empresa = e.target.value;
+        this.dados = [...this.dados];
     }
 }
