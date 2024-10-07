@@ -1,60 +1,34 @@
-import { LightningElement } from 'lwc';
+import getAccount from '@salesforce/apex/ComponentePaiController.getAccount';
+import getDadosEmpresas from '@salesforce/apex/ComponentePaiController.getDadosEmpresas';
+import { LightningElement, wire } from 'lwc';
 
 export default class ComponentePai extends LightningElement {
 
-    dadosPai = [
-        {
-            id: 1,
-            empresa: 'Empresa 1',
-            produtos: [
-                { id: 1, nome: 'Produto 1' },
-                { id: 2, nome: 'Produto 2' }
-            ],
-            distribuidoras: [
-                { id: 1, nome: 'Distribuidora 1' },
-                { id: 2, nome: 'Distribuidora 2' }
-            ],
-            lojas: [
-                { id: 1, nome: 'Loja 1' },
-                { id: 2, nome: 'Loja 2' },
-                { id: 2, nome: 'Loja 3' },
-            ]
-        },
-        {
-            id: 2,
-            empresa: 'Empresa 2',
-            produtos: [
-                { id: 1, nome: 'Produto 1' },
-                { id: 2, nome: 'Produto 2' }
-            ],
-            distribuidoras: [
-                { id: 1, nome: 'Distribuidora 3' },
-                { id: 2, nome: 'Distribuidora 4' }
-            ],
-            lojas: [
-                { id: 2, nome: 'Loja 5' },
-                { id: 1, nome: 'Loja 4' },
-                { id: 3, nome: 'Loja 6' },
-            ]
-        },
-        {
-            id: 3,
-            empresa: 'Empresa 3',
-            produtos: [
-                { id: 1, nome: 'Produto 1' },
-                { id: 2, nome: 'Produto 2' }
-            ],
-            distribuidoras: [
-                { id: 1, nome: 'Distribuidora 5' },
-                { id: 2, nome: 'Distribuidora 6' }
-            ],
-            lojas: [
-                { id: 2, nome: 'Loja 7' },
-                { id: 1, nome: 'Loja 8' },
-                { id: 3, nome: 'Loja 9' },
-            ]
-        }
-    ];
+    dadosPai;                                                                                                                                                                                                   
+    connectedCallback(){        
+        this.pegarValoresEmpresa();
+    }
+
+    async pegarValoresEmpresa(){
+        try{
+            this.dadosPai = await getDadosEmpresas();
+            console.log('contas: ' + JSON.stringify(dadosPai));
+        } catch(error){
+            console.log('error: ' + JSON.stringify(error));
+            this.setToast('Error', 'Não possivel carregar as contas', 'error');
+        }       
+    }
+
+    @wire(getAccount)
+    contas({data, error}){
+        if(data){
+            this.contas = data;
+            console.log('contas: ' + JSON.stringify(this.contas));
+        }else if(error){
+            console.log('error: ' + JSON.stringify(error));
+            this.setToast('Error', 'Não possivel carregar as contas', 'error');
+        }        
+    }   
 
     handleClickItemSelecionadoPai(e){        
         console.log(JSON.stringify(e.detail.dado));

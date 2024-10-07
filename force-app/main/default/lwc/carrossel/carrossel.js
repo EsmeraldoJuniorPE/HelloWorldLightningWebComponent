@@ -5,9 +5,8 @@ export default class Carrossel extends LightningElement {
     pagina = 0;
     paginaSelecionada; 
     
-    connectedCallback(){
-        this.dados = JSON.parse(JSON.stringify(this.dados));
-    }
+    connectedCallback(){}
+
     get posicao(){
         return `transform:translateX(-${this.pagina * 100}%);`;
     }
@@ -36,6 +35,11 @@ export default class Carrossel extends LightningElement {
         }
     }
 
+    mudarvalor(e){
+        this.dados = JSON.parse(JSON.stringify(this.dados));
+        this.dados[e.target.dataset.index].empresa = e.target.value;        
+    }
+
     handleClickItemSelecionado(){
         this.paginaSelecionada = this.pagina;        
         const selecionado = new CustomEvent('passavalor',{
@@ -44,10 +48,5 @@ export default class Carrossel extends LightningElement {
             }
         });
         this.dispatchEvent(selecionado);
-    }
-
-    mudarvalor(e){
-        this.dados[this.pagina].empresa = e.target.value;
-        this.dados = [...this.dados];
-    }
+    }   
 }
