@@ -66,5 +66,4 @@ public with sharing class ComponentePaiController {
         @AuraEnabled public String id;
         @AuraEnabled public String nome;
     }
-
 }
